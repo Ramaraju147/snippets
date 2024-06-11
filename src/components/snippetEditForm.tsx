@@ -15,6 +15,9 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
   const changeHandler = (value:string="")=> {
     setCode(value);
   }
+
+  const editSnippetAction = editSnippet.bind(null,snippet.id,code)
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold mb-4">Edit Snippet</h2>
@@ -27,13 +30,15 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
         defaultValue={snippet.code}
         options={{ theme: 'vs-dark' }} // Dark theme for the editor
         className="rounded-md border" // Adds border and rounded corners
-        onChange={changeHandler}
+        onChange={(value) => changeHandler(value)}
       />
 
       <div className="mt-6 flex justify-end gap-4">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+        <form action={editSnippetAction}>
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
           Save
         </button>
+        </form>
         <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
           Cancel
         </button>
